@@ -1,7 +1,8 @@
 <template>
   <Header />
-  <Counter />
+  <CountersList />
   <Footer />
+  <Modal />
 </template>
 
 <script setup>
