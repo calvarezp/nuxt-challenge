@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <CountersList />
+  <List />
   <Footer />
   <Modal />
 </template>
