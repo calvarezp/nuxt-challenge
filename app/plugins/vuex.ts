@@ -3,6 +3,22 @@ import { createStore } from 'vuex'
 import type {StoreState} from "~/architecture/domain/types/store-state";
 import type {Counter} from "~/architecture/domain/types";
 
+const localStoragePlugin = (store: Store<StoreState>) => {
+    if(import.meta.client) {
+        const saved = localStorage.getItem('counters');
+        if (saved) {
+            store.replaceState({
+                ...store.state,
+                counters: JSON.parse(saved)
+            });
+        }
+        store.subscribe((_mutation: any, state: any) => {
+            localStorage.setItem('counters', JSON.stringify(state.counters));
+        });
+    }
+};
+
+
 export default defineNuxtPlugin((nuxtApp) => {
     const store = createStore({
         state: (): StoreState => ({
@@ -64,7 +80,8 @@ export default defineNuxtPlugin((nuxtApp) => {
             subtractValue({ commit }, id: string) {
                 commit('subtractValue', id)
             },
-        }
+        },
+        plugins: [localStoragePlugin],
     })
 
     nuxtApp.vueApp.use(store)
