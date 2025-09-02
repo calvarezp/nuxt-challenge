@@ -23,7 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     const store = createStore({
         state: (): StoreState => ({
             isModalOpen: false,
-            counters: []
+            counters: [] as Counter[],
         }),
         mutations: {
             openModal(state) {
@@ -32,11 +32,14 @@ export default defineNuxtPlugin((nuxtApp) => {
             closeModal(state) {
                 state.isModalOpen = false
             },
-            addCounter(state, payload) {
-                state.counters.push(payload)
+            addCounter(state, counter: Counter) {
+                state.counters.push(counter)
             },
             removeCounter(state, id: string) {
                 state.counters = state.counters.filter(counter => counter.id !== id);
+            },
+            setCounters(state, counters: Counter[]) {
+                state.counters = counters;
             },
             sumValue(state, id: string) {
                 state.counters = state.counters.map((counter) => {

@@ -2,6 +2,7 @@
   <li>
     <span>{{ item.name }}</span>
     <button
+        :disabled="item.value <= 0"
         @click="() => subtract(item.id)"
     >-</button>
     <span>{{ item.value }}</span>
