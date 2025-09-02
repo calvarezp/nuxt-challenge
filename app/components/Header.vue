@@ -18,6 +18,6 @@ const counters = computed(() => {
 });
 
 function openModal() {
-  $store.dispatch('openModal')
+  $store.commit('openModal');
 }
 </script>

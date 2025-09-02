@@ -61,26 +61,6 @@ export default defineNuxtPlugin((nuxtApp) => {
                 });
             },
         },
-        actions: {
-            openModal({ commit }) {
-                commit('openModal')
-            },
-            closeModal({ commit }) {
-                commit('closeModal')
-            },
-            addCounter({ commit }, counter: Counter) {
-                commit('addCounter', counter)
-            },
-            removeCounter({ commit }, id: string) {
-                commit('removeCounter', id)
-            },
-            sumValue({ commit }, id: string) {
-                commit('sumValue', id)
-            },
-            subtractValue({ commit }, id: string) {
-                commit('subtractValue', id)
-            },
-        },
         plugins: [localStoragePlugin],
     })
 

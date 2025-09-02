@@ -20,9 +20,10 @@
 <script setup lang="ts">
 import { watch,ref } from 'vue';
 import type {Store} from "vuex";
+import type {StoreState} from "~/architecture/domain/types";
 
 const { $store } = useNuxtApp();
-const store = $store as Store<any>
+const store = $store as Store<StoreState>
 const modal = ref(null);
 const name = ref("");
 
@@ -36,7 +37,7 @@ watch(
 
 function closeDialog() {
   name.value = "";
-  store.dispatch('closeModal')
+  store.commit('closeModal')
 }
 
 function addCounter() {
@@ -47,7 +48,7 @@ function addCounter() {
 
   const id = crypto.randomUUID();
   const payload = { id, name: name.value, value: 0 };
-  store.dispatch('addCounter', payload);
+  store.commit('addCounter', payload);
   name.value = "";
   closeDialog();
 }

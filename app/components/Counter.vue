@@ -15,19 +15,19 @@
 
 <script setup lang="ts">
 import type {Counter} from "~/architecture/domain/types";
+import type {Store} from "vuex";
 
 defineProps<{ item: Counter }>()
-import type {Store} from "vuex";
 
 const { $store } = useNuxtApp();
 const store = $store as Store<any>;
 
 function sum(id: string) {
-  store.dispatch('sumValue', id);
+  store.commit('sumValue', id);
 }
 
 function subtract(id: string) {
-  store.dispatch('subtractValue', id);
+  store.commit('subtractValue', id);
 }
 
 function remove(id: string) {
@@ -36,7 +36,7 @@ function remove(id: string) {
     return;
   }
 
-  store.dispatch('removeCounter', id);
+  store.commit('removeCounter', id);
   name.value = "";
 }
 </script>
