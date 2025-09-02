@@ -17,18 +17,25 @@ export function orderCounters(counters: Counter[], orderType: OrderType) {
     }
 }
 
-export function filterCounters(counters: Counter[], filterType: string, filterValue: number) {
-    if (filterType === 'null') {
+export function filterCounters(counters: Counter[], filterType: string, filterValue: number, finderValue: string) {
+    if (filterType === 'null' && finderValue.trim().length === 0) {
         return counters;
     }
-    return counters.filter(counter => {
+    let filtered = counters.filter(counter => {
         switch (filterType) {
             case 'greater-than':
                 return counter.value > filterValue;
             case 'less-than':
                 return counter.value < filterValue;
             default:
-                return false;
+                return true;
         }
     });
+
+    console.info('filtered ->', filtered)
+
+    filtered = filtered.filter(counter => {
+        return counter.name.toLowerCase().includes(finderValue.toLowerCase());
+    });
+    return filtered;
 }

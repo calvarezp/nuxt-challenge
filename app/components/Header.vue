@@ -20,6 +20,7 @@
         v-model="filterValue"
         :disabled="filterType === 'null'"
     />
+
     <button
         @click="filter"
     >
@@ -30,6 +31,12 @@
     >
       Reiniciar
     </button>
+    Buscar:
+    <input
+      type="text"
+      placeholder="Nombre"
+      v-model="finderValue"
+    />
   </header>
 </template>
 
@@ -47,6 +54,12 @@ const counters = computed(() => {
 
 const filterType = ref("null");
 const filterValue = ref(null);
+const finderValue = ref("");
+
+watch(finderValue, (value) => {
+  const filtered = filterCounters(counters.value, filterType.value, filterValue.value, value);
+  store.commit('setFilteredCounters', filtered);
+}, { immediate: true });
 
 function order(event: Event) {
   const value = (event.target as HTMLSelectElement).value
@@ -59,10 +72,7 @@ function order(event: Event) {
 }
 
 function filter() {
-  if (!filterValue.value) {
-    return;
-  }
-  const filtered = filterCounters(counters.value, filterType.value, filterValue.value);
+  const filtered = filterCounters(counters.value, filterType.value, filterValue.value, finderValue.value);
   store.commit('setFilteredCounters', filtered);
 }
 
