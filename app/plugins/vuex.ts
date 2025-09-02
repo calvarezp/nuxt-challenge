@@ -18,12 +18,12 @@ const localStoragePlugin = (store: Store<StoreState>) => {
     }
 };
 
-
 export default defineNuxtPlugin((nuxtApp) => {
     const store = createStore({
         state: (): StoreState => ({
             isModalOpen: false,
             counters: [] as Counter[],
+            filteredCounters: [] as Counter[],
         }),
         mutations: {
             openModal(state) {
@@ -40,6 +40,9 @@ export default defineNuxtPlugin((nuxtApp) => {
             },
             setCounters(state, counters: Counter[]) {
                 state.counters = counters;
+            },
+            setFilteredCounters(state, counters: Counter[]) {
+                state.filteredCounters = counters;
             },
             sumValue(state, id: string) {
                 state.counters = state.counters.map((counter) => {

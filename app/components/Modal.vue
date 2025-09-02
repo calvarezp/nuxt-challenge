@@ -23,7 +23,7 @@ import type {Store} from "vuex";
 import type {StoreState} from "~/architecture/domain/types";
 
 const { $store } = useNuxtApp();
-const store = $store as Store<StoreState>
+const store = $store as Store<StoreState>;
 const modal = ref(null);
 const name = ref("");
 

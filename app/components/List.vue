@@ -5,9 +5,9 @@
     </p>
     <ul>
       <Counter
-          v-for="(item, index) in counters"
+          v-for="(counter, index) in counters"
           :key="index"
-          :item="item"
+          :counter="counter"
       />
     </ul>
   </div>
@@ -15,9 +15,31 @@
 
 <script setup lang="ts">
 import Counter from "~/components/Counter.vue";
+import {ref} from "vue";
 
 const { $store } = useNuxtApp();
-const counters = computed(() => {
+const counters = ref<Counter[]>([]);
+
+const originalCounters = computed(() => {
   return $store.state.counters;
 });
+
+const filteredCounters = computed(() => {
+  return $store.state.filteredCounters;
+});
+
+watch(originalCounters, (value) => {
+  if (filteredCounters.value.length > 0) {
+    value = filteredCounters.value;
+  }
+  counters.value = value;
+}, { immediate: true });
+
+watch(filteredCounters, (value) => {
+  value = originalCounters.value;
+  if (filteredCounters.value.length > 0) {
+    value = filteredCounters.value;
+  }
+  counters.value = value;
+}, { immediate: true });
 </script>

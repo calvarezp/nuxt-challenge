@@ -1,16 +1,25 @@
 <template>
   <li>
-    <span>{{ item.name }}</span>
+    <!-- Counter name -->
+    <span>{{ counter.name }}</span>
+
+    <!-- Subtract button -->
     <button
-        :disabled="item.value <= 0"
-        @click="() => subtract(item.id)"
+        :disabled="counter.value <= 0"
+        @click="() => subtract(counter.id)"
     >-</button>
-    <span>{{ item.value }}</span>
+
+    <!-- Counter value -->
+    <span>{{ counter.value }}</span>
+
+    <!-- Sum button -->
     <button
-        :disabled="item.value >= 20"
-        @click="() => sum(item.id)"
+        :disabled="counter.value >= 20"
+        @click="() => sum(counter.id)"
     >+</button>
-    <button @click="() => remove(item.id)">Eliminar</button>
+
+    <!-- Delete button -->
+    <button @click="() => remove(counter.id)">Eliminar</button>
   </li>
 </template>
 
@@ -18,7 +27,7 @@
 import type {Counter} from "~/architecture/domain/types";
 import type {Store} from "vuex";
 
-defineProps<{ item: Counter }>()
+defineProps<{ counter: Counter }>()
 
 const { $store } = useNuxtApp();
 const store = $store as Store<any>;
