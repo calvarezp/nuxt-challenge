@@ -8,13 +8,6 @@
       <option value="value-asc">Valor ascendente</option>
       <option value="value-desc">Valor descendente</option>
     </select>
-    <button
-        @click="openModal"
-        :disabled="counters.length >= 20"
-        :title="counters.length >= 20 ? 'El máximo de contadores es 20' : ''"
-    >
-      Agregar contador
-    </button>
     <span>Filtrar: </span>
     <select v-model="filterType">
       <option value="null">Seleccione</option>
@@ -54,10 +47,6 @@ const counters = computed(() => {
 
 const filterType = ref("null");
 const filterValue = ref(null);
-
-function openModal() {
-  $store.commit('openModal');
-}
 
 function order(event: Event) {
   const value = (event.target as HTMLSelectElement).value

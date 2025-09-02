@@ -1,5 +1,12 @@
 <template>
   <div>
+    <button
+        @click="openModal"
+        :disabled="counters.length >= 20"
+        :title="counters.length >= 20 ? 'El máximo de contadores es 20' : ''"
+    >
+      Agregar contador
+    </button>
     <p v-if="counters.length === 0">
       No hay contadores disponibles.
     </p>
@@ -42,4 +49,8 @@ watch(filteredCounters, (value) => {
   }
   counters.value = value;
 }, { immediate: true });
+
+function openModal() {
+  $store.commit('openModal');
+}
 </script>
